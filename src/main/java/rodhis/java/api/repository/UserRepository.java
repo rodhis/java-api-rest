@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.name LIKE %:name%")
     List<User> filtrarPorNome(@Param("name") String name);
 
+//    boolean existsByUserName(String username);
+
 }

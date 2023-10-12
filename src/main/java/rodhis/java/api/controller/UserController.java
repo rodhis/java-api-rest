@@ -1,15 +1,25 @@
 package rodhis.java.api.controller;
 
 import rodhis.java.api.model.User;
-import rodhis.java.api.repository.UserRepository;
+import rodhis.java.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("/users") toda requisição vai começar com a rota users
+@RequestMapping("/users") //toda requisição vai começar com a rota users
 public class UserController {
+
+    @Autowired
+    private UserService service;
+    @PostMapping
+    public void postUser(@RequestBody User user) {
+        service.createUser(user);
+    }
+
+//    código anterior, com uso do CRUD via annotations
 //    @Autowired
 //    private UserRepository repository;
 //    @GetMapping() //este método será utilizado exclusivamente nessa rota users, evitando conflitos
@@ -37,16 +47,4 @@ public class UserController {
 //        repository.save(user);
 //    }
 
-    @GetMapping
-    public String welcome(){
-        return "Welcome to My Spring Boot Web API";
-    }
-    @GetMapping("/users")
-    public String users() {
-        return "Authorized user";
-    }
-    @GetMapping("/managers")
-    public String managers() {
-        return "Authorized manager";
-    }
 }
